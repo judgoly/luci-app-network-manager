@@ -1,0 +1,31 @@
+#!/bin/sh
+
+INTERFACE="wan"
+TEST_HOST="8.8.8.8"
+MAX_FAILS=3
+
+while true; do
+    fails=0
+    
+    # 检测网络状态
+    for i in $(seq 1 $MAX_FAILS); do
+        if ! ping -c 1 -W 5 $TEST_HOST > /dev/null 2>&1; then
+            fails=$((fails+1))
+        else
+            fails=0
+            break
+        fi
+        sleep 5
+    done
+
+    if [ $fails -ge $MAX_FAILS ]; then
+        logger -t NetworkManager "检测到网络断开，正在重启接口..."
+        ifdown $INTERFACE
+        sleep 5
+        ifup $INTERFACE
+        logger -t NetworkManager "接口已重启，等待60秒后重新检测"
+        sleep 60
+    else
+        sleep 30
+    fi
+done
