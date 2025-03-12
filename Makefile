@@ -20,29 +20,32 @@ define Package/$(PKG_NAME)/description
 endef
 
 define Build/Prepare
+	@echo "跳过准备阶段"
 endef
 
 define Build/Configure
+	@echo "跳过配置阶段"
 endef
 
 define Build/Compile
+	@echo "跳过编译阶段"
 endef
 
 define Package/$(PKG_NAME)/install
-    $(INSTALL_DIR) $(1)/etc/config
-    $(INSTALL_CONF) ./root/etc/config/network-manager $(1)/etc/config/network-manager
-    
-    $(INSTALL_DIR) $(1)/usr/lib/lua/luci/controller
-    $(INSTALL_DATA) ./root/usr/lib/lua/luci/controller/network-manager.lua $(1)/usr/lib/lua/luci/controller/
-    
-    $(INSTALL_DIR) $(1)/usr/lib/lua/luci/model/cbi
-    $(INSTALL_DATA) ./root/usr/lib/lua/luci/model/cbi/network-manager.lua $(1)/usr/lib/lua/luci/model/cbi/
-    
-    $(INSTALL_DIR) $(1)/usr/bin
-    $(INSTALL_BIN) ./root/usr/bin/network-check $(1)/usr/bin/
-    
-    $(INSTALL_DIR) $(1)/etc/init.d
-    $(INSTALL_BIN) ./root/etc/init.d/netwatch $(1)/etc/init.d/
+	$(INSTALL_DIR) $(1)/etc/config
+	$(INSTALL_CONF) ./root/etc/config/network-manager $(1)/etc/config/network-manager
+	
+	$(INSTALL_DIR) $(1)/usr/lib/lua/luci/controller
+	$(INSTALL_DATA) ./root/usr/lib/lua/luci/controller/network-manager.lua $(1)/usr/lib/lua/luci/controller/
+	
+	$(INSTALL_DIR) $(1)/usr/lib/lua/luci/model/cbi
+	$(INSTALL_DATA) ./root/usr/lib/lua/luci/model/cbi/network-manager.lua $(1)/usr/lib/lua/luci/model/cbi/
+	
+	$(INSTALL_DIR) $(1)/usr/bin
+	$(INSTALL_BIN) ./root/usr/bin/network-check $(1)/usr/bin/
+	
+	$(INSTALL_DIR) $(1)/etc/init.d
+	$(INSTALL_BIN) ./root/etc/init.d/netwatch $(1)/etc/init.d/
 endef
 
 $(eval $(call BuildPackage,$(PKG_NAME)))
