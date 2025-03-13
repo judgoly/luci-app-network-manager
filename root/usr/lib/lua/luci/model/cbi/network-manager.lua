@@ -16,8 +16,20 @@ o:value("wan6", "WAN6")
 o.default = "wan"
 
 o = s:option(Value, "time", translate("每日重启时间"))
-o.datatype = "timehhmm"
-o.placeholder = "03:30"
+o.placeholder = "07:30"
+o.datatype = "string"  -- 修改为 string 类型
+o.validate = function(self, value, section)
+    if not value:match("^%d%d:%d%d$") then
+        return nil, translate("时间格式必须为 HH:MM")
+    end
+    local h, m = value:match("^(%d%d):(%d%d)$")
+    h = tonumber(h)
+    m = tonumber(m)
+    if h < 0 or h > 23 or m < 0 or m > 59 then
+        return nil, translate("时间值无效，请输入 HH:MM 格式")
+    end
+    return value
+end
 
 -- 高级设置
 s = m:section(TypedSection, "advanced", translate("高级设置"),
