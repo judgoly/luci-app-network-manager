@@ -1,0 +1,32 @@
+#!/bin/sh
+
+CONFIG_FILE="/etc/config/network-manager"
+INTERFACE=$(uci -q get $CONFIG_FILE.basic.main.interface)
+REBOOT_TIME=$(uci -q get $CONFIG_FILE.basic.main.time)
+LOCK_FILE="/var/lock/nm_scheduler.lock"
+
+logger -t NetworkManager[定时器] "服务启动：接口=$INTERFACE, 计划时间=$REBOOT_TIME"
+
+while true; do
+    current_time=$(date +"%H:%M")
+    
+    if [ "$current_time" = "$REBOOT_TIME" ] && [ ! -f "$LOCK_FILE" ]; then
+        touch "$LOCK_FILE"
+        
+        logger -t NetworkManager[定时器] "开始重启接口"
+        ifdown $INTERFACE
+        sleep 2
+        ifup $INTERFACE
+        
+        if [ $? -eq 0 ]; then
+            logger -t NetworkManager[定时器] "接口重启成功"
+        else
+            logger -t NetworkManager[定时器] "重启失败，错误码: $?"
+        fi
+        
+        sleep 58
+        rm -f "$LOCK_FILE"
+    fi
+    
+    sleep 30
+done

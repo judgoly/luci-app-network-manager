@@ -1,8 +1,8 @@
 config basic 'main'
     option enabled '0'
     option interface 'wan'
-    option time '07:30'
+    option time '03:30'
 
 config advanced 'settings'
     option ping_host '8.8.8.8'
-    option retry '3'
+    option retry '2'
