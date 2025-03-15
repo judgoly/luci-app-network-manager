@@ -15,21 +15,21 @@ define Package/$(PKG_NAME)
   PKGARCH:=all
 endef
 
-define Package/$(PKG_NAME)/description
-  A network interface management tool with scheduled restart and monitoring features.
-endef
+# define Package/$(PKG_NAME)/description
+#   A network interface management tool with scheduled restart and monitoring features.
+# endef
 
-define Build/Prepare
-  @echo "跳过准备阶段"
-endef
+# define Build/Prepare
+#   @echo "跳过准备阶段"
+# endef
 
-define Build/Configure
-  @echo "跳过配置阶段"
-endef
+# define Build/Configure
+#   @echo "跳过配置阶段"
+# endef
 
-define Build/Compile
-  @echo "跳过编译阶段"
-endef
+# define Build/Compile
+#   @echo "跳过编译阶段"
+# endef
 
 define Package/$(PKG_NAME)/install
     # 配置文件
@@ -61,4 +61,4 @@ define Package/$(PKG_NAME)/postinst
     exit 0
 endef
 
-$(eval $(call BuildPackage,$(PKG_NAME)))
+$(eval  $(call BuildPackage,$(PKG_NAME)))
