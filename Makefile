@@ -15,10 +15,20 @@ define Package/$(PKG_NAME)
   PKGARCH:=all
 endef
 
+define Package/$(PKG_NAME)/description
+  A network interface management tool with scheduled restart and monitoring features.
+endef
+
 define Build/Prepare
-	@echo "Copying local files to build directory..."
-	mkdir -p $(PKG_BUILD_DIR)
-	$(CP) ./root/* $(PKG_BUILD_DIR)/
+  @echo "跳过准备阶段"
+endef
+
+define Build/Configure
+  @echo "跳过配置阶段"
+endef
+
+define Build/Compile
+  @echo "跳过编译阶段"
 endef
 
 define Package/$(PKG_NAME)/install
