@@ -16,7 +16,7 @@ while true; do
     for i in $(seq 1 $MAX_FAILS); do
         if ! ping -c 1 -W $PING_TIMEOUT $TEST_HOST >/dev/null 2>&1; then
             fails=$((fails+1))
-            logger -t NetworkManager[监测器] "网络异常 ($i/$MAX_FAILS)"
+            # logger -t NetworkManager[监测器] "网络异常 ($i/$MAX_FAILS)"
             sleep $PING_INTERVAL
         else
             fails=0
