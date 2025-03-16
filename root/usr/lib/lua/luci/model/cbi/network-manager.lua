@@ -29,7 +29,7 @@ s.addremove = false
 s.anonymous = true
 
 o = s:option(Value, "ping_host", translate("检测主机"))
-o.default = "8.8.8.8"
+o.default = "www.baidu.com"
 o.datatype = "host"
 
 o = s:option(Value, "retry", translate("重试次数"))

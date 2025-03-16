@@ -4,5 +4,5 @@ config basic 'main'
     option time '03:30'
 
 config advanced 'settings'
-    option ping_host '8.8.8.8'
+    option ping_host 'www.baidu.com'
     option retry '2'
